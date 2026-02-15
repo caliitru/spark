@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Spark Studio - Campaign Builder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1337ec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101322",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #cbd5e1;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen flex overflow-hidden">
+<!-- Fixed Left Sidebar -->
+<aside class="w-72 bg-white dark:bg-background-dark border-r border-slate-200 dark:border-slate-800 flex flex-col h-screen fixed left-0 top-0 z-50">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-8">
+<div class="size-10 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined fill-1">bolt</span>
+</div>
+<div>
+<h1 class="text-slate-900 dark:text-white text-lg font-bold leading-none">Spark Studio</h1>
+<p class="text-slate-500 dark:text-slate-400 text-xs mt-1">Campaign Builder</p>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-primary/20 mb-8">
+<span class="material-symbols-outlined text-xl">add_box</span>
+<span>New Generation</span>
+</button>
+<div class="space-y-1">
+<p class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider px-3 mb-3">Recent Generations</p>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary font-medium group" href="#">
+<span class="material-symbols-outlined text-xl">schedule</span>
+<span class="text-sm truncate">Summer Promo 2024</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-xl text-slate-400 group-hover:text-slate-600 transition-colors">schedule</span>
+<span class="text-sm truncate">Product Launch Q3</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-xl text-slate-400 group-hover:text-slate-600 transition-colors">schedule</span>
+<span class="text-sm truncate">Brand Awareness Alpha</span>
+</a>
+</div>
+</div>
+<div class="mt-auto p-6 border-t border-slate-100 dark:border-slate-800">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+<div class="mt-4 flex items-center gap-3 px-3">
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center" data-alt="User profile avatar circle" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCJdJ8hRQN8r-41ELF-csyLPh6V9zp_LjUItc6GwE0SfnVoclNhq7fJxFpmtlOX4JZ8RMTZ3FInnrACaSkWp0TE-xevx5bVBDOdiIll98bSGBqaap-0QF5bVftIVBywMJ9j3KBQEBU4WPQXJuUlqb5Lp0XcIFIJs8FPCNzgV0c1MC3JBx7NH-acIad9FG2q-E4ap2o6_qeboLgOuomeFx2CxL6GTIGekkux9P94Yb0H_6TM7amoQnGCLg8kU7wnyZX41KtQ9nBPlUQ')"></div>
+<div class="overflow-hidden">
+<p class="text-sm font-semibold truncate">Alex Rivera</p>
+<p class="text-xs text-slate-500 truncate">Pro Account</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-72 overflow-y-auto h-screen custom-scrollbar">
+<div class="max-w-6xl mx-auto px-8 py-8">
+<!-- Top Header with Platform Selector -->
+<div class="mb-8">
+<div class="flex items-center justify-between mb-2">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white">Create Campaign</h2>
+<div class="flex items-center gap-2 bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-xl">
+<button class="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 shadow-sm text-sm font-semibold text-slate-900 dark:text-white transition-all" data-platform="linkedin">
+                            LinkedIn
+                        </button>
+<button class="px-4 py-2 rounded-lg text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-all" data-platform="instagram">
+                            Instagram
+                        </button>
+<button class="px-4 py-2 rounded-lg text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-all" data-platform="twitter">
+                            Twitter
+                        </button>
+<input type="hidden" name="platform" value="linkedin" id="platform-input"/>
+</div>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Platform selection influences formatting, hashtags, and tone.</p>
+</div>
+<div class="grid grid-cols-12 gap-8 items-start">
+<!-- Left Column (Form Fields) -->
+<div class="col-span-8 space-y-8 pb-20">
+<!-- Card 1: Campaign Basics -->
+<section class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">info</span>
+<h3 class="font-bold text-lg">Campaign Basics</h3>
+</div>
+<div class="p-8 space-y-6">
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Brand Name <span class="text-primary">*</span></label>
+<input name="company" class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" placeholder="e.g. Spark Studio" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Event <span class="text-slate-400 text-xs">(optional)</span></label>
+<input name="event" class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" placeholder="e.g. Seasonal Clearance" type="text"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Title / Headline</label>
+<input name="title" class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" placeholder="The main hook of your campaign" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Campaign Message</label>
+<textarea name="campaign_message" class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all resize-none" placeholder="What is the primary story or offer you want to communicate?" rows="4"></textarea>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Call to Action (CTA)</label>
+<input name="call_to_action" class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" placeholder="e.g. Shop Now, Learn More, Join the waitlist" type="text"/>
+</div>
+<details class="group mt-6">
+<summary class="flex items-center justify-between cursor-pointer list-none text-slate-600 dark:text-slate-400 font-semibold text-sm hover:text-primary transition-colors">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">settings</span>
+                                        Advanced Settings
+                                    </span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="mt-6 space-y-6">
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Hashtags</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" placeholder="#campaign #brand #example" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Character Limit</label>
+<select class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all cursor-pointer">
+<option>Auto (Platform Default)</option>
+<option>Twitter (280)</option>
+<option>Custom</option>
+</select>
+</div>
+</div>
+</details>
+</div>
+</section>
+<!-- Card 2: Product Details -->
+<section class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">shopping_bag</span>
+<h3 class="font-bold text-lg">Product Details</h3>
+</div>
+<div class="p-8 space-y-6">
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Product Name <span class="text-slate-400 text-xs">(optional)</span></label>
+<input name="Product" class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" placeholder="e.g. Product name, service, or campaign focus" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Product Description <span class="text-xs text-slate-400 font-normal">Required if generating captions</span></label>
+<textarea name="product_description" class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all resize-none" placeholder="Describe what makes your product unique and valuable..." rows="4"></textarea>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Key Features</label>
+<div class="flex flex-wrap gap-2 p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl min-h-[60px]">
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 text-primary text-xs font-semibold rounded-lg">
+                                        Fast Shipping
+                                        <button class="material-symbols-outlined text-sm hover:text-primary/70">close</button>
+</span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 text-primary text-xs font-semibold rounded-lg">
+                                        30-Day Returns
+                                        <button class="material-symbols-outlined text-sm hover:text-primary/70">close</button>
+</span>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 border-2 border-dashed border-slate-300 dark:border-slate-600 text-slate-400 text-xs font-medium rounded-lg hover:border-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+                                        Add Feature
+                                    </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Card 3: Creative Direction -->
+<section class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">auto_fix_high</span>
+<h3 class="font-bold text-lg">Creative Direction</h3>
+</div>
+<div class="p-8 space-y-6">
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Target Audience</label>
+<textarea name="Target_audience" class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all resize-none" placeholder="e.g. Marketing managers at B2B tech companies looking to scale" rows="2"></textarea>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Campaign Goal</label>
+<select class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all appearance-none cursor-pointer">
+<option>Lead Generation</option>
+<option>Brand Awareness</option>
+<option>Direct Sales</option>
+<option>Community Growth</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Tone</label>
+<select class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all appearance-none cursor-pointer">
+<option>Professional</option>
+<option>Playful / Witty</option>
+<option>Inspirational</option>
+<option>Minimalist</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Mood</label>
+<input name="mood" class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" placeholder="e.g. Cinematic, High-energy" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Color Palette</label>
+<div class="flex items-center gap-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3">
+<button type="button" class="w-8 h-8 rounded-full bg-primary border-2 border-white dark:border-slate-800 shadow-md hover:scale-110 transition-transform cursor-pointer color-circle" data-color="#1337ec" title="Primary Blue"></button>
+<button type="button" class="w-8 h-8 rounded-full bg-slate-900 border-2 border-white dark:border-slate-800 shadow-md hover:scale-110 transition-transform cursor-pointer color-circle" data-color="#0f172a" title="Dark Navy"></button>
+<button type="button" class="w-8 h-8 rounded-full bg-emerald-400 border-2 border-white dark:border-slate-800 shadow-md hover:scale-110 transition-transform cursor-pointer color-circle" data-color="#34d399" title="Mint Green"></button>
+<button type="button" id="add-color-btn" class="ml-auto text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">palette</span>
+</button>
+<input type="color" id="color-picker" class="hidden" />
+<input type="hidden" name="color" id="color-value" value="#1337ec, #0f172a, #34d399"/>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Layout / Composition</label>
+<textarea name="layout" class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all resize-none" placeholder="e.g. Flat lay photography with central text overlay" rows="2"></textarea>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Style Notes</label>
+<textarea name="Style" class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all resize-none" placeholder="Any additional visual or structural constraints..." rows="3"></textarea>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column (Sticky Output Settings) -->
+<div class="col-span-4 sticky top-8">
+<section class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">tune</span>
+<h3 class="font-bold text-lg">Output Settings</h3>
+</div>
+<div class="p-6 space-y-8">
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-sm font-bold">Generate Captions</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input name="want_captions" checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm font-bold">Generate Images</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input name="want_images" checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<div class="space-y-6">
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Variations</span>
+<span id="variations-count" class="text-sm font-bold text-primary">3</span>
+</div>
+<input id="variations-slider" name="num_captions" class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-primary" max="5" min="1" type="range" value="3"/>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Creativity</span>
+<span class="text-sm font-bold text-primary">Balanced</span>
+</div>
+<input class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-primary" max="100" min="1" type="range" value="50"/>
+</div>
+</div>
+<div class="pt-4 space-y-3">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined fill-1">bolt</span>
+                                    Generate Campaign
+                                </button>
+<button class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 font-bold py-3 px-4 rounded-xl transition-all">
+                                    Reset Form
+                                </button>
+</div>
+</div>
+</section>
+<!-- AI Tip Box -->
+<div class="mt-6 p-5 bg-primary/5 border border-primary/10 rounded-2xl flex gap-4">
+<div class="shrink-0">
+<span class="material-symbols-outlined text-primary">lightbulb</span>
+</div>
+<div>
+<p class="text-xs font-bold text-primary uppercase tracking-wider mb-1">AI Tip</p>
+<p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Use specific adjectives like "matte texture" or "dramatic lighting" in the <span class="font-semibold text-slate-800 dark:text-slate-200">Mood</span> field for more tailored visual results.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+// Update variations count when slider changes
+const variationsSlider = document.getElementById('variations-slider');
+const variationsCount = document.getElementById('variations-count');
+
+variationsSlider.addEventListener('input', function() {
+    variationsCount.textContent = this.value;
+});
+
+// Handle platform selection
+const platformButtons = document.querySelectorAll('[data-platform]');
+const platformInput = document.getElementById('platform-input');
+
+platformButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        // Remove active state from all buttons
+        platformButtons.forEach(btn => {
+            btn.classList.remove('bg-white', 'dark:bg-slate-700', 'shadow-sm', 'text-slate-900', 'dark:text-white', 'font-semibold');
+            btn.classList.add('text-slate-500', 'dark:text-slate-400', 'font-medium');
+        });
+        
+        // Add active state to clicked button
+        this.classList.add('bg-white', 'dark:bg-slate-700', 'shadow-sm', 'text-slate-900', 'dark:text-white', 'font-semibold');
+        this.classList.remove('text-slate-500', 'dark:text-slate-400', 'font-medium');
+        
+        // Update hidden input value
+        platformInput.value = this.getAttribute('data-platform');
+    });
+});
+
+// Color palette functionality
+const colorPicker = document.getElementById('color-picker');
+const addColorBtn = document.getElementById('add-color-btn');
+const colorValue = document.getElementById('color-value');
+const colorCircles = document.querySelectorAll('.color-circle');
+
+// Track selected colors
+let selectedColors = ['#1337ec', '#0f172a', '#34d399'];
+
+// Open color picker when palette icon is clicked
+addColorBtn.addEventListener('click', function() {
+    colorPicker.click();
+});
+
+// When a color is picked, add it to the palette
+colorPicker.addEventListener('change', function() {
+    const newColor = this.value;
+    
+    // Find the first non-default color circle or replace the last one
+    const paletteContainer = addColorBtn.parentElement;
+    const circles = paletteContainer.querySelectorAll('.color-circle');
+    
+    if (circles.length < 6) {
+        // Add new color circle
+        const newCircle = document.createElement('button');
+        newCircle.type = 'button';
+        newCircle.className = 'w-8 h-8 rounded-full border-2 border-white dark:border-slate-800 shadow-md hover:scale-110 transition-transform cursor-pointer color-circle';
+        newCircle.style.backgroundColor = newColor;
+        newCircle.setAttribute('data-color', newColor);
+        newCircle.title = newColor;
+        
+        // Add click to remove functionality
+        newCircle.addEventListener('click', function() {
+            if (circles.length > 1) {
+                this.remove();
+                updateColorValue();
+            }
+        });
+        
+        paletteContainer.insertBefore(newCircle, addColorBtn);
+        selectedColors.push(newColor);
+    } else {
+        // Replace the last circle
+        const lastCircle = circles[circles.length - 1];
+        lastCircle.style.backgroundColor = newColor;
+        lastCircle.setAttribute('data-color', newColor);
+        lastCircle.title = newColor;
+        selectedColors[selectedColors.length - 1] = newColor;
+    }
+    
+    updateColorValue();
+});
+
+// Click on existing color circles to remove them
+colorCircles.forEach(circle => {
+    circle.addEventListener('click', function() {
+        const allCircles = document.querySelectorAll('.color-circle');
+        if (allCircles.length > 1) {
+            const colorToRemove = this.getAttribute('data-color');
+            selectedColors = selectedColors.filter(c => c !== colorToRemove);
+            this.remove();
+            updateColorValue();
+        }
+    });
+});
+
+// Update the hidden input with comma-separated color values
+function updateColorValue() {
+    const circles = document.querySelectorAll('.color-circle');
+    const colors = Array.from(circles).map(c => c.getAttribute('data-color'));
+    colorValue.value = colors.join(', ');
+    selectedColors = colors;
+}
+</script>
+</body></html>

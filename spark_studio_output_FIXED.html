@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Spark Studio - Campaign Results</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1337ec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101322",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-display">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center gap-3">
+<div class="size-8 bg-primary rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-xl">bolt</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Spark Studio</h1>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-bold text-primary border-b-2 border-primary py-5" href="#">Campaigns</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">History</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-8 w-px bg-slate-200 dark:bg-slate-800 mx-2"></div>
+<div class="flex items-center gap-3 cursor-pointer group">
+<div class="bg-primary/10 text-primary font-bold size-9 rounded-full flex items-center justify-center border border-primary/20">
+                            JD
+                        </div>
+<span class="text-sm font-medium hidden sm:block">Jane Doe</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Breadcrumbs -->
+<div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-6">
+<div class="flex items-center gap-2 text-sm text-slate-500">
+<a class="hover:text-primary" href="#">Campaigns</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-slate-900 dark:text-slate-200 font-medium">Spark Pro Launch</span>
+</div>
+</div>
+<!-- Main Content Grid -->
+<main class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex-grow">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Sidebar: Campaign Summary -->
+<aside class="lg:col-span-3 space-y-6">
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 sticky top-24">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-bold text-slate-900 dark:text-white">Campaign Summary</h3>
+<span class="material-symbols-outlined text-slate-400 text-xl">info</span>
+</div>
+<div class="space-y-5">
+<div class="flex flex-col gap-1">
+<span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Platform</span>
+<div class="flex items-center gap-2 text-sm font-semibold">
+<span class="material-symbols-outlined text-blue-600 text-lg">share</span>
+                                LinkedIn
+                            </div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Brand Name</span>
+<p class="text-sm font-semibold">Spark Pro</p>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Target Audience</span>
+<p class="text-sm font-semibold">SaaS Founders</p>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Campaign Goal</span>
+<p class="text-sm font-semibold">Lead Gen</p>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Tone</span>
+<p class="text-sm font-semibold">Professional</p>
+</div>
+<div class="flex flex-col gap-1 pb-4">
+<span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Call to Action</span>
+<p class="text-sm font-semibold">Sign Up</p>
+</div>
+</div>
+<button class="w-full mt-4 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-lg">edit</span>
+                        Edit Campaign
+                    </button>
+</div>
+</aside>
+<!-- Main Content Area: Tabs and Results -->
+<div class="lg:col-span-9">
+<!-- Tab Headers -->
+<div class="flex border-b border-slate-200 dark:border-slate-800 mb-8 overflow-x-auto">
+<button id="captions-tab" class="px-6 py-3 text-sm font-bold text-primary border-b-2 border-primary whitespace-nowrap" onclick="switchTab('captions')">
+                        Captions (3)
+                    </button>
+<button id="images-tab" class="px-6 py-3 text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 whitespace-nowrap" onclick="switchTab('images')">
+                        Images
+                    </button>
+</div>
+<!-- Captions Content -->
+<div id="captions-content" class="space-y-6 pb-24">
+<!-- Card 1: Engaging -->
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden group">
+<div class="p-4 border-b border-slate-50 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/20">
+<span class="px-2.5 py-1 rounded-md text-[10px] font-black tracking-widest bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 uppercase">Engaging</span>
+<div class="flex items-center gap-2">
+<button class="p-1.5 hover:bg-white dark:hover:bg-slate-700 rounded-md text-slate-400 hover:text-primary transition-all" title="Copy text">
+<span class="material-symbols-outlined text-lg">content_copy</span>
+</button>
+<button class="p-1.5 hover:bg-white dark:hover:bg-slate-700 rounded-md text-slate-400 hover:text-primary transition-all" title="Regenerate this version">
+<span class="material-symbols-outlined text-lg">refresh</span>
+</button>
+</div>
+</div>
+<div class="p-6">
+<textarea class="w-full min-h-[120px] bg-transparent border-none focus:ring-0 text-slate-800 dark:text-slate-200 leading-relaxed resize-none font-display">Are you tired of spending 20+ hours a week on manual content creation? 🚀
+
+Spark Pro is designed specifically for SaaS founders who need to scale their LinkedIn presence without losing their voice. From automated scheduling to AI-driven insights, we've got you covered.
+
+Start your 14-day free trial today and watch your engagement soar. #SaaSFounders #GrowthHacking #LinkedInStrategy</textarea>
+</div>
+<div class="px-6 py-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-6">
+<div class="flex items-center gap-2 text-xs font-medium text-slate-500">
+<span class="material-symbols-outlined text-emerald-500 text-sm">trending_up</span>
+                                Engagement: <span class="text-slate-900 dark:text-white">High</span>
+</div>
+<div class="flex items-center gap-2 text-xs font-medium text-slate-500">
+<span class="material-symbols-outlined text-primary text-sm">tag</span>
+                                Suggested Hashtags: <span class="text-slate-900 dark:text-white">5</span>
+</div>
+</div>
+</div>
+<!-- Card 2: Professional -->
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden group">
+<div class="p-4 border-b border-slate-50 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/20">
+<span class="px-2.5 py-1 rounded-md text-[10px] font-black tracking-widest bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary uppercase">Professional</span>
+<div class="flex items-center gap-2">
+<button class="p-1.5 hover:bg-white dark:hover:bg-slate-700 rounded-md text-slate-400 hover:text-primary transition-all" title="Copy text">
+<span class="material-symbols-outlined text-lg">content_copy</span>
+</button>
+<button class="p-1.5 hover:bg-white dark:hover:bg-slate-700 rounded-md text-slate-400 hover:text-primary transition-all" title="Regenerate this version">
+<span class="material-symbols-outlined text-lg">refresh</span>
+</button>
+</div>
+</div>
+<div class="p-6">
+<textarea class="w-full min-h-[120px] bg-transparent border-none focus:ring-0 text-slate-800 dark:text-slate-200 leading-relaxed resize-none font-display">Efficient content distribution is no longer a luxury for B2B founders; it is a necessity. 
+
+Spark Pro offers a professional-grade suite of tools designed to streamline your personal branding efforts on LinkedIn. By leveraging our proprietary AI models, founders can maintain a consistent, high-value presence that drives genuine lead generation.
+
+Explore our enterprise-ready features today at the link below. #B2BMarketing #SaaSGrowth #ProfessionalBranding</textarea>
+</div>
+<div class="px-6 py-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-6">
+<div class="flex items-center gap-2 text-xs font-medium text-slate-500">
+<span class="material-symbols-outlined text-emerald-500 text-sm">trending_up</span>
+                                Engagement: <span class="text-slate-900 dark:text-white">High</span>
+</div>
+<div class="flex items-center gap-2 text-xs font-medium text-slate-500">
+<span class="material-symbols-outlined text-primary text-sm">tag</span>
+                                Suggested Hashtags: <span class="text-slate-900 dark:text-white">3</span>
+</div>
+</div>
+</div>
+<!-- Card 3: Casual -->
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden group">
+<div class="p-4 border-b border-slate-50 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/20">
+<span class="px-2.5 py-1 rounded-md text-[10px] font-black tracking-widest bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 uppercase">Casual</span>
+<div class="flex items-center gap-2">
+<button class="p-1.5 hover:bg-white dark:hover:bg-slate-700 rounded-md text-slate-400 hover:text-primary transition-all" title="Copy text">
+<span class="material-symbols-outlined text-lg">content_copy</span>
+</button>
+<button class="p-1.5 hover:bg-white dark:hover:bg-slate-700 rounded-md text-slate-400 hover:text-primary transition-all" title="Regenerate this version">
+<span class="material-symbols-outlined text-lg">refresh</span>
+</button>
+</div>
+</div>
+<div class="p-6">
+<textarea class="w-full min-h-[120px] bg-transparent border-none focus:ring-0 text-slate-800 dark:text-slate-200 leading-relaxed resize-none font-display">Is it just me, or is LinkedIn getting harder? 😅
+
+Most "guru" advice tells you to post every day, but who actually has time for that while running a startup? That's exactly why we built Spark Pro. It's like having a dedicated content team in your pocket.
+
+Click the link in the bio to see how it works! No strings attached. ✌️ #StartupLife #FounderReality #LinkedInTips</textarea>
+</div>
+<div class="px-6 py-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-6">
+<div class="flex items-center gap-2 text-xs font-medium text-slate-500">
+<span class="material-symbols-outlined text-orange-400 text-sm">bar_chart</span>
+                                Engagement: <span class="text-slate-900 dark:text-white">Medium</span>
+</div>
+<div class="flex items-center gap-2 text-xs font-medium text-slate-500">
+<span class="material-symbols-outlined text-primary text-sm">tag</span>
+                                Suggested Hashtags: <span class="text-slate-900 dark:text-white">4</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Images Content (Hidden by default) -->
+<div id="images-content" class="hidden pb-24">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Image Card 1 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden group">
+<div class="w-full h-64 bg-gradient-to-br from-blue-400 to-purple-600 relative overflow-hidden">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+<button class="p-3 bg-white/90 rounded-lg hover:bg-white transition-colors" title="Download">
+<span class="material-symbols-outlined text-slate-900">download</span>
+</button>
+<button class="p-3 bg-white/90 rounded-lg hover:bg-white transition-colors" title="Regenerate">
+<span class="material-symbols-outlined text-slate-900">refresh</span>
+</button>
+</div>
+</div>
+<div class="p-4">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Image 1</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary">1024x1024</span>
+</div>
+<p class="text-xs text-slate-600 dark:text-slate-400">LinkedIn optimized visual</p>
+</div>
+</div>
+<!-- Image Card 2 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden group">
+<div class="w-full h-64 bg-gradient-to-br from-emerald-400 to-cyan-600 relative overflow-hidden">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+<button class="p-3 bg-white/90 rounded-lg hover:bg-white transition-colors" title="Download">
+<span class="material-symbols-outlined text-slate-900">download</span>
+</button>
+<button class="p-3 bg-white/90 rounded-lg hover:bg-white transition-colors" title="Regenerate">
+<span class="material-symbols-outlined text-slate-900">refresh</span>
+</button>
+</div>
+</div>
+<div class="p-4">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Image 2</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary">1024x1024</span>
+</div>
+<p class="text-xs text-slate-600 dark:text-slate-400">LinkedIn optimized visual</p>
+</div>
+</div>
+<!-- Image Card 3 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden group">
+<div class="w-full h-64 bg-gradient-to-br from-orange-400 to-pink-600 relative overflow-hidden">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+<button class="p-3 bg-white/90 rounded-lg hover:bg-white transition-colors" title="Download">
+<span class="material-symbols-outlined text-slate-900">download</span>
+</button>
+<button class="p-3 bg-white/90 rounded-lg hover:bg-white transition-colors" title="Regenerate">
+<span class="material-symbols-outlined text-slate-900">refresh</span>
+</button>
+</div>
+</div>
+<div class="p-4">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Image 3</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary">1024x1024</span>
+</div>
+<p class="text-xs text-slate-600 dark:text-slate-400">LinkedIn optimized visual</p>
+</div>
+</div>
+</div>
+<div class="mt-8 text-center">
+<button class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 rounded-xl font-bold hover:border-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined">add_photo_alternate</span>
+                        Generate More Images
+                    </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+// Tab switching functionality
+function switchTab(tab) {
+    const captionsTab = document.getElementById('captions-tab');
+    const imagesTab = document.getElementById('images-tab');
+    const captionsContent = document.getElementById('captions-content');
+    const imagesContent = document.getElementById('images-content');
+    
+    if (tab === 'captions') {
+        // Activate Captions tab
+        captionsTab.classList.remove('text-slate-500', 'dark:text-slate-400', 'font-medium');
+        captionsTab.classList.add('text-primary', 'border-b-2', 'border-primary', 'font-bold');
+        
+        // Deactivate Images tab
+        imagesTab.classList.remove('text-primary', 'border-b-2', 'border-primary', 'font-bold');
+        imagesTab.classList.add('text-slate-500', 'dark:text-slate-400', 'font-medium');
+        
+        // Show/hide content
+        captionsContent.classList.remove('hidden');
+        imagesContent.classList.add('hidden');
+    } else if (tab === 'images') {
+        // Activate Images tab
+        imagesTab.classList.remove('text-slate-500', 'dark:text-slate-400', 'font-medium');
+        imagesTab.classList.add('text-primary', 'border-b-2', 'border-primary', 'font-bold');
+        
+        // Deactivate Captions tab
+        captionsTab.classList.remove('text-primary', 'border-b-2', 'border-primary', 'font-bold');
+        captionsTab.classList.add('text-slate-500', 'dark:text-slate-400', 'font-medium');
+        
+        // Show/hide content
+        captionsContent.classList.add('hidden');
+        imagesContent.classList.remove('hidden');
+    }
+}
+</script>
+<!-- Sticky Bottom Action Bar -->
+<footer class="fixed bottom-0 left-0 right-0 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 py-4 px-6 z-40">
+<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-3 w-full sm:w-auto">
+<button class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 text-sm font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-lg">refresh</span>
+                    Regenerate All
+                </button>
+<button class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 text-sm font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-lg">share</span>
+                    Share Campaign
+                </button>
+</div>
+<div class="flex items-center gap-4 w-full sm:w-auto">
+<p class="hidden md:block text-xs text-slate-500 font-medium">Auto-saved 2 mins ago</p>
+<button class="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-2.5 bg-primary text-white rounded-lg font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/25">
+<span class="material-symbols-outlined text-lg">rocket_launch</span>
+                    Export Campaign
+                </button>
+</div>
+</div>
+</footer>
+</body></html>
