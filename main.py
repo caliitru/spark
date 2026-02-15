@@ -1,13 +1,23 @@
-from fastapi import FastAPI, Path , HTTPException, Query
-from pydantic import AnyUrl, BaseModel, EmailStr, Field, field_validator, model_validator, computed_field
-import json
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+import json
 from generator import generate_captions, generate_image
 from models import GenerateRequest
 from prompt import build_caption_prompt, build_image_prompt
 
 app = FastAPI()
+
+# ===================================================================
+# CORS MIDDLEWARE - Allows frontend to connect to backend
+# ===================================================================
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # In production, replace with your Netlify URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def default_size_for_platform(platform: str) -> str:
     p = platform.lower()
@@ -65,3 +75,8 @@ def generate(request: GenerateRequest):
         result["caption_prompt"] = caption_prompt
 
     return result
+
+# Health check endpoint for Railway
+@app.get("/")
+def read_root():
+    return {"status": "ok", "message": "Spark Studio API is running"}
