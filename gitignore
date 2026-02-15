@@ -1,0 +1,137 @@
+# ========================================
+# SECRETS - NEVER COMMIT THESE!
+# ========================================
+.streamlit/secrets.toml
+.env
+*.env
+.env.local
+.env.*.local
+
+# ========================================
+# API KEYS & CREDENTIALS
+# ========================================
+*.key
+*.pem
+credentials.json
+service-account.json
+
+# ========================================
+# PYTHON
+# ========================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# ========================================
+# GENERATED FILES
+# ========================================
+# Generated images from your app
+*_generated_images/
+generated_images/
+*.png
+*.jpg
+*.jpeg
+*.gif
+# BUT keep any example/placeholder images if you have them
+!example.png
+!placeholder.png
+
+# ========================================
+# IDE & EDITOR FILES
+# ========================================
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# ========================================
+# OPERATING SYSTEM FILES
+# ========================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+.directory
+.Trash-*
+
+# ========================================
+# LOGS & DATABASES
+# ========================================
+*.log
+*.sql
+*.sqlite
+*.db
+
+# ========================================
+# TESTING & COVERAGE
+# ========================================
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# ========================================
+# JUPYTER NOTEBOOKS
+# ========================================
+.ipynb_checkpoints/
+*.ipynb
+
+# ========================================
+# STREAMLIT
+# ========================================
+.streamlit/cache/
+
+# ========================================
+# TEMPORARY FILES
+# ========================================
+*.tmp
+*.temp
+*.bak
+*.swp
