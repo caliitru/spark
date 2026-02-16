@@ -79,27 +79,46 @@ def build_caption_prompt(platform: str, company: str, event: str, title: str, de
     if call_to_action:
         context += f" Call to action: {call_to_action}"
 
+    # FIXED: Clear formatting instructions that match the split logic
+    format_instruction = (
+        "\n\nFORMATTING RULES:\n"
+        "- Write EXACTLY {n} complete captions\n"
+        "- Each caption must include BOTH the text AND hashtags together\n"
+        "- Separate each caption with TWO blank lines (\\n\\n)\n"
+        "- Do NOT separate hashtags from caption text\n"
+        "- Number the captions (Caption 1:, Caption 2:, etc.)"
+    )
+
     match platform.lower():
         case "linkedin":
             return (
                 f"Write {n} professional LinkedIn captions for: {context}\n"
-                "- 3–5 lines each\n- confident, business-friendly\n- include 3–8 relevant hashtags\n"
-                "- avoid excessive emojis\nReturn each caption separated by a blank line."
+                "- 3–5 lines each\n"
+                "- Confident, business-friendly tone\n"
+                "- Include 3–8 relevant hashtags at the end of each caption\n"
+                "- Avoid excessive emojis\n"
+                + format_instruction.format(n=n)
             )
         case "instagram":
             return (
                 f"Write {n} Instagram captions for: {context}\n"
-                "- friendly and catchy\n- 1–3 short paragraphs\n- can use a few emojis\n"
-                "- include 8–15 hashtags\nReturn each caption separated by a blank line."
+                "- Friendly and catchy\n"
+                "- 1–3 short paragraphs\n"
+                "- Can use a few emojis\n"
+                "- Include 8–15 hashtags at the end of each caption\n"
+                + format_instruction.format(n=n)
             )
         case "twitter" | "x":
             return (
                 f"Write {n} X (Twitter) posts for: {context}\n"
-                "- max ~200 characters each\n- punchy\n- 1–3 hashtags\n"
-                "Return each post separated by a blank line."
+                "- Max ~200 characters each\n"
+                "- Punchy and engaging\n"
+                "- Include 1–3 hashtags at the end of each post\n"
+                + format_instruction.format(n=n)
             )
         case _:
             return (
-                f"Write {n} captions for: {context}\n"
-                "- include hashtags\nReturn each caption separated by a blank line."
+                f"Write {n} social media captions for: {context}\n"
+                "- Include relevant hashtags at the end of each caption\n"
+                + format_instruction.format(n=n)
             )

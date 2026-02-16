@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import json
 from generator import generate_captions, generate_image
@@ -18,6 +19,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# ===================================================================
+# SERVE GENERATED IMAGES
+# ===================================================================
+app.mount("/images", StaticFiles(directory="."), name="images")
 
 def default_size_for_platform(platform: str) -> str:
     p = platform.lower()

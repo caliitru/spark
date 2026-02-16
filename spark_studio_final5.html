@@ -323,17 +323,7 @@
 </div>
 </div>
 </section>
-<!-- AI Tip Box -->
-<div class="mt-6 p-5 bg-primary/5 border border-primary/10 rounded-2xl flex gap-4">
-<div class="shrink-0">
-<span class="material-symbols-outlined text-primary">lightbulb</span>
-</div>
-<div>
-<p class="text-xs font-bold text-primary uppercase tracking-wider mb-1">AI Tip</p>
-<p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                Use specific adjectives like "matte texture" or "dramatic lighting" in the <span class="font-semibold text-slate-800 dark:text-slate-200">Mood</span> field for more tailored visual results.
-                            </p>
-</div>
+
 </div>
 </div>
 </div>
@@ -442,5 +432,118 @@ function updateColorValue() {
     colorValue.value = colors.join(', ');
     selectedColors = colors;
 }
+
+// =================================================================
+// BACKEND INTEGRATION - Form Submission
+// =================================================================
+
+const BACKEND_URL = 'http://localhost:8000';  // Change to production URL when deploying
+
+// Function to collect all form data
+function collectFormData() {
+    return {
+        username: 'User_' + Date.now(),
+        platform: document.getElementById('platform-input').value,
+        company: document.querySelector('input[name="company"]').value,
+        event: document.querySelector('input[name="event"]').value || '',
+        title: document.querySelector('input[name="title"]').value || '',
+        product_description: document.querySelector('textarea[name="product_description"]').value || '',
+        num_images: parseInt(document.getElementById('variations-slider').value) || 3,
+        num_captions: parseInt(document.getElementById('variations-slider').value) || 3,
+        brand_name: document.querySelector('input[name="company"]').value,
+        color: document.getElementById('color-value').value || '',
+        want_images: document.querySelector('input[name="want_images"]').checked,
+        want_captions: document.querySelector('input[name="want_captions"]').checked,
+        Target_audience: document.querySelector('textarea[name="Target_audience"]').value || null,
+        Product: document.querySelector('input[name="Product"]').value || null,
+        Style: document.querySelector('textarea[name="Style"]').value || null,
+        campaign_message: document.querySelector('textarea[name="campaign_message"]').value || null,
+        features: [],
+        layout: document.querySelector('textarea[name="layout"]').value || null,
+        mood: document.querySelector('input[name="mood"]').value || null,
+        call_to_action: document.querySelector('input[name="call_to_action"]').value || null
+    };
+}
+
+// Function to show loading state
+function showLoading(button) {
+    button.disabled = true;
+    button.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Generating...';
+}
+
+// Function to hide loading state
+function hideLoading(button, originalText) {
+    button.disabled = false;
+    button.innerHTML = originalText;
+}
+
+// Function to handle form submission
+async function generateCampaign() {
+    // Validate required fields
+    const company = document.querySelector('input[name="company"]').value;
+    if (!company) {
+        alert('Please fill in the Brand Name field!');
+        return;
+    }
+    
+    const formData = collectFormData();
+    
+    // Check if at least one output type is selected
+    if (!formData.want_images && !formData.want_captions) {
+        alert('Please select at least one output type (Captions or Images)!');
+        return;
+    }
+    
+    // Find the generate button
+    const generateButton = document.querySelector('button[class*="bg-primary"]');
+    const originalButtonText = generateButton.innerHTML;
+    
+    console.log('Sending data to backend:', formData);
+    showLoading(generateButton);
+    
+    try {
+        const response = await fetch(`${BACKEND_URL}/generate`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.detail || 'Generation failed');
+        }
+        
+        const result = await response.json();
+        console.log('Backend response:', result);
+        
+        // Store result in localStorage
+        localStorage.setItem('campaignResult', JSON.stringify(result));
+        localStorage.setItem('campaignInput', JSON.stringify(formData));
+        
+        // Redirect to output page
+        window.location.href = 'spark_studio_output_FIXED5.html';
+        
+    } catch (error) {
+        console.error('Error:', error);
+        alert(`Error generating campaign: ${error.message}\n\nMake sure the backend is running at ${BACKEND_URL}`);
+        hideLoading(generateButton, originalButtonText);
+    }
+}
+
+// Attach event listener to Generate Campaign button
+document.addEventListener('DOMContentLoaded', function() {
+    // Find all buttons and attach to the one that says "Generate Campaign"
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        if (button.textContent.includes('Generate Campaign')) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                generateCampaign();
+            });
+        }
+    });
+});
 </script>
 </body></html>

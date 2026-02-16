@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Spark Studio - Campaign Results</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: { "primary": "#1337ec", "background-light": "#f6f6f8", "background-dark": "#101322" },
+                    fontFamily: { "display": ["Inter"] },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-display">
+
+<header class="sticky top-0 z-50 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        <div class="flex items-center gap-3">
+            <div class="size-8 bg-primary rounded flex items-center justify-center text-white"><span class="material-symbols-outlined text-xl">bolt</span></div>
+            <h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Spark Studio</h1>
+        </div>
+        <nav class="hidden md:flex items-center gap-8">
+            <a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="dashboard.html">Dashboard</a>
+            <a class="text-sm font-bold text-primary border-b-2 border-primary py-5" href="spark_studio_final4.html">Campaigns</a>
+            <a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="history.html">History</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <div class="size-9 rounded-full bg-primary/10 border border-primary/20 text-primary flex items-center justify-center font-bold">JD</div>
+            <span class="text-sm font-medium hidden sm:block">Jane Doe</span>
+        </div>
+    </div>
+</header>
+
+<main class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex-grow pb-40">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <aside class="lg:col-span-3">
+            <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 sticky top-24">
+                <h3 class="font-bold mb-6 flex items-center justify-between">Summary <span class="material-symbols-outlined text-slate-400 text-lg">info</span></h3>
+                <div id="summary-content" class="space-y-5 text-sm">
+                    </div>
+                <button onclick="window.location.href='spark_studio_final4.html'" class="w-full mt-8 py-2.5 bg-slate-100 dark:bg-slate-800 rounded-lg font-bold text-sm hover:bg-slate-200 transition-colors flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-lg">edit</span> Edit Campaign
+                </button>
+            </div>
+        </aside>
+
+        <div class="lg:col-span-9">
+            <div class="flex border-b border-slate-200 dark:border-slate-800 mb-8">
+                <button id="captions-tab" class="px-6 py-3 text-sm font-bold text-primary border-b-2 border-primary" onclick="switchTab('captions')">Captions</button>
+                <button id="images-tab" class="px-6 py-3 text-sm font-medium text-slate-500" onclick="switchTab('images')">Images</button>
+            </div>
+
+            <div id="captions-content" class="space-y-6"></div>
+            
+            <div id="images-content" class="hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-slate-900/95 border-t border-slate-200 dark:border-slate-800 py-4 px-8 z-40 backdrop-blur-sm">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <button id="regenerate-btn" class="px-6 py-2 border border-slate-200 rounded-lg text-sm font-bold hover:bg-slate-50 transition-colors">Regenerate All</button>
+        <button id="export-btn" class="px-10 py-2.5 bg-primary text-white rounded-lg font-bold shadow-lg hover:opacity-90 transition-all">Export Campaign</button>
+    </div>
+</footer>
+
+<script>
+    function switchTab(t) {
+        document.getElementById('captions-content').classList.toggle('hidden', t !== 'captions');
+        document.getElementById('images-content').classList.toggle('hidden', t !== 'images');
+        document.getElementById('captions-tab').className = t === 'captions' ? 'px-6 py-3 text-sm font-bold text-primary border-b-2 border-primary' : 'px-6 py-3 text-sm font-medium text-slate-500';
+        document.getElementById('images-tab').className = t === 'images' ? 'px-6 py-3 text-sm font-bold text-primary border-b-2 border-primary' : 'px-6 py-3 text-sm font-medium text-slate-500';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const result = JSON.parse(localStorage.getItem('campaignResult'));
+        const input = JSON.parse(localStorage.getItem('campaignInput'));
+        
+        if (result && input) {
+            updateSummary(input);
+            if (result.captions) updateCaptions(result.captions);
+            if (result.images) updateImages(result.images, input.username);
+        }
+    });
+
+    function updateSummary(input) {
+        document.getElementById('summary-content').innerHTML = `
+            <div><p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Brand</p><p class="font-semibold">${input.company}</p></div>
+            <div><p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Platform</p><p class="font-semibold capitalize">${input.platform}</p></div>
+            <div><p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Goal</p><p class="font-semibold">${input.call_to_action || 'Lead Generation'}</p></div>
+        `;
+    }
+
+    function updateCaptions(captions) {
+        const container = document.getElementById('captions-content');
+        document.getElementById('captions-tab').textContent = `Captions (${captions.length})`;
+        container.innerHTML = captions.map((cap, i) => `
+            <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden group relative">
+                <div class="p-4 border-b border-slate-50 flex justify-between bg-slate-50/30">
+                    <span class="text-[10px] font-black uppercase text-primary tracking-widest">Variation ${i+1}</span>
+                    <button onclick="navigator.clipboard.writeText(\`${cap}\`)" class="material-symbols-outlined text-slate-400 hover:text-primary transition-colors">content_copy</button>
+                </div>
+                <div class="p-6"><p class="text-slate-700 dark:text-slate-300 whitespace-pre-wrap leading-relaxed">${cap}</p></div>
+            </div>
+        `).join('');
+    }
+
+    function updateImages(imageFiles, username) {
+        const grid = document.querySelector('#images-content .grid');
+        document.getElementById('images-tab').textContent = `Images (${imageFiles.length})`;
+        grid.innerHTML = '';
+        
+        const BACKEND_URL = 'http://localhost:8000'; // cite: main.py
+
+        imageFiles.forEach((filePath, index) => {
+            const imageUrl = `${BACKEND_URL}/images/${filePath}`;
+            const card = document.createElement('div');
+            card.className = 'bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden group';
+            
+            card.innerHTML = `
+                <div class="relative aspect-square w-full bg-slate-100 flex items-center justify-center overflow-hidden">
+                    <img src="${imageUrl}" class="h-full w-full object-cover" alt="Campaign visual variation ${index+1}">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <a href="${imageUrl}" download="image_${index+1}.png" class="p-4 bg-white rounded-xl shadow-2xl text-slate-900"><span class="material-symbols-outlined">download</span></a>
+                    </div>
+                </div>
+                <div class="p-4 text-center">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Variation ${index + 1}</span>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    document.getElementById('export-btn').onclick = () => {
+        const data = localStorage.getItem('campaignResult');
+        const blob = new Blob([data], {type: 'application/json'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `campaign_export_${Date.now()}.json`;
+        a.click();
+    };
+
+    document.getElementById('regenerate-btn').onclick = () => {
+        if(confirm('Regenerate using original settings?')) {
+            window.location.href = 'spark_studio_final4.html?trigger=true';
+        }
+    };
+</script>
+</body>
+</html>

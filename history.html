@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>History - Spark Studio</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: { "primary": "#1337ec" },
+                    fontFamily: { "display": ["Inter", "sans-serif"] },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-display">
+
+<!-- Header -->
+<header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="size-10 bg-primary rounded-lg flex items-center justify-center text-white">
+                <span class="material-symbols-outlined fill-1">bolt</span>
+            </div>
+            <h1 class="text-xl font-bold">Spark Studio</h1>
+        </div>
+        
+        <nav class="flex items-center gap-1">
+            <a href="dashboard.html" class="px-4 py-2 font-medium text-slate-600 hover:text-slate-900">Dashboard</a>
+            <a href="spark_studio_final4.html" class="px-4 py-2 font-medium text-slate-600 hover:text-slate-900">Campaigns</a>
+            <a href="history.html" class="px-4 py-2 font-semibold text-primary border-b-2 border-primary">History</a>
+        </nav>
+        
+        <div class="flex items-center gap-3">
+            <div class="size-9 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">JD</div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="max-w-7xl mx-auto px-6 py-8">
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h2 class="text-3xl font-bold mb-2">Campaign History</h2>
+            <p class="text-slate-600">View and manage all your previous campaigns</p>
+        </div>
+        <button onclick="clearAllHistory()" class="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg border border-red-200">
+            Clear All History
+        </button>
+    </div>
+
+    <!-- Search/Filter -->
+    <div class="bg-white rounded-xl p-4 mb-6 border border-slate-200">
+        <div class="flex items-center gap-4">
+            <div class="flex-1 flex items-center gap-2 bg-slate-50 rounded-lg px-4 py-2">
+                <span class="material-symbols-outlined text-slate-400">search</span>
+                <input type="text" id="search-input" placeholder="Search campaigns..." class="flex-1 bg-transparent border-none outline-none" oninput="filterCampaigns()"/>
+            </div>
+            <select id="platform-filter" class="px-4 py-2 bg-slate-50 border-none rounded-lg outline-none" onchange="filterCampaigns()">
+                <option value="">All Platforms</option>
+                <option value="linkedin">LinkedIn</option>
+                <option value="instagram">Instagram</option>
+                <option value="twitter">Twitter</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Campaign List -->
+    <div id="campaigns-list" class="space-y-4">
+        <!-- Campaigns will load here -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="hidden bg-white rounded-xl p-12 text-center border border-slate-200">
+        <span class="material-symbols-outlined text-6xl text-slate-300 mb-4 block">history</span>
+        <h3 class="text-xl font-bold mb-2">No campaigns yet</h3>
+        <p class="text-slate-600 mb-6">Start creating campaigns to see them here</p>
+        <a href="spark_studio_final4.html" class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90">
+            <span class="material-symbols-outlined">add</span>
+            Create Campaign
+        </a>
+    </div>
+</main>
+
+<script>
+let allCampaigns = [];
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadAllCampaigns();
+});
+
+function loadAllCampaigns() {
+    allCampaigns = [];
+    
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith('campaign_')) {
+            try {
+                const campaign = JSON.parse(localStorage.getItem(key));
+                campaign.key = key; // Store the key for deletion
+                allCampaigns.push(campaign);
+            } catch (e) {}
+        }
+    }
+    
+    allCampaigns.sort((a, b) => b.timestamp - a.timestamp);
+    displayCampaigns(allCampaigns);
+}
+
+function displayCampaigns(campaigns) {
+    const container = document.getElementById('campaigns-list');
+    const emptyState = document.getElementById('empty-state');
+    
+    if (campaigns.length === 0) {
+        container.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+    }
+    
+    emptyState.classList.add('hidden');
+    
+    container.innerHTML = campaigns.map((campaign, index) => {
+        const platform = campaign.input.platform || 'general';
+        const company = campaign.input.company || 'Untitled Campaign';
+        const date = new Date(parseInt(campaign.timestamp));
+        const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const formattedTime = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        
+        const platformColors = {
+            linkedin: 'bg-blue-100 text-blue-700',
+            instagram: 'bg-pink-100 text-pink-700',
+            twitter: 'bg-sky-100 text-sky-700'
+        };
+        
+        const platformIcons = {
+            linkedin: 'work',
+            instagram: 'photo_camera',
+            twitter: 'forum'
+        };
+        
+        return `
+            <div class="bg-white rounded-xl p-6 border border-slate-200 hover:shadow-md transition-shadow">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-start gap-4 flex-1">
+                        <div class="size-14 ${platformColors[platform] || 'bg-slate-100 text-slate-700'} rounded-lg flex items-center justify-center flex-shrink-0">
+                            <span class="material-symbols-outlined text-2xl">${platformIcons[platform] || 'campaign'}</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-bold mb-1">${company}</h3>
+                            <p class="text-sm text-slate-600 mb-2">${campaign.input.campaign_message || campaign.input.title || 'No description'}</p>
+                            <div class="flex items-center gap-3 text-xs text-slate-500">
+                                <span class="flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-sm">calendar_today</span>
+                                    ${formattedDate}
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-sm">schedule</span>
+                                    ${formattedTime}
+                                </span>
+                                <span class="uppercase font-semibold ${platformColors[platform] || 'bg-slate-100 text-slate-700'} px-2 py-0.5 rounded">
+                                    ${platform}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="viewCampaign('${campaign.key}')" class="p-2 hover:bg-slate-100 rounded-lg" title="View">
+                            <span class="material-symbols-outlined text-slate-600">visibility</span>
+                        </button>
+                        <button onclick="deleteCampaign('${campaign.key}')" class="p-2 hover:bg-red-50 rounded-lg" title="Delete">
+                            <span class="material-symbols-outlined text-red-600">delete</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-4 pt-4 border-t border-slate-100">
+                    <div class="flex items-center gap-2 text-sm">
+                        <span class="material-symbols-outlined text-emerald-600 text-lg">description</span>
+                        <span class="font-semibold">${campaign.result.captions?.length || 0}</span>
+                        <span class="text-slate-600">Captions</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm">
+                        <span class="material-symbols-outlined text-blue-600 text-lg">image</span>
+                        <span class="font-semibold">${campaign.result.images?.length || 0}</span>
+                        <span class="text-slate-600">Images</span>
+                    </div>
+                    ${campaign.input.Target_audience ? `
+                        <div class="flex items-center gap-2 text-sm ml-auto">
+                            <span class="material-symbols-outlined text-purple-600 text-lg">group</span>
+                            <span class="text-slate-600">${campaign.input.Target_audience.substring(0, 30)}...</span>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function filterCampaigns() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const platformFilter = document.getElementById('platform-filter').value;
+    
+    let filtered = allCampaigns;
+    
+    if (searchTerm) {
+        filtered = filtered.filter(campaign => 
+            (campaign.input.company?.toLowerCase().includes(searchTerm)) ||
+            (campaign.input.campaign_message?.toLowerCase().includes(searchTerm)) ||
+            (campaign.input.title?.toLowerCase().includes(searchTerm))
+        );
+    }
+    
+    if (platformFilter) {
+        filtered = filtered.filter(campaign => campaign.input.platform === platformFilter);
+    }
+    
+    displayCampaigns(filtered);
+}
+
+function viewCampaign(key) {
+    const campaign = JSON.parse(localStorage.getItem(key));
+    
+    localStorage.setItem('campaignResult', JSON.stringify(campaign.result));
+    localStorage.setItem('campaignInput', JSON.stringify(campaign.input));
+    
+    window.location.href = 'spark_studio_output_FIXED4.html';
+}
+
+function deleteCampaign(key) {
+    if (confirm('Are you sure you want to delete this campaign?')) {
+        localStorage.removeItem(key);
+        loadAllCampaigns();
+    }
+}
+
+function clearAllHistory() {
+    if (confirm('Are you sure you want to delete ALL campaigns? This cannot be undone.')) {
+        allCampaigns.forEach(campaign => {
+            localStorage.removeItem(campaign.key);
+        });
+        loadAllCampaigns();
+    }
+}
+</script>
+
+</body>
+</html>

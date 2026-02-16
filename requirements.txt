@@ -1,8 +1,7 @@
-streamlit
-openai
-PyPDF2
-python-docx
-pandas
-pytesseract
-pdf2image
-Pillow
+fastapi==0.109.2
+uvicorn==0.27.1
+python-dotenv==1.0.1
+openai==1.12.0
+pydantic==2.6.1
+python-multipart==0.0.9
+pillow==10.2.0
